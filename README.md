@@ -1,7 +1,10 @@
 # titan_scraper
 A web scraper for downloading Attack On Titan manga
 
-You will need Beautiful soup to run this scraper (pip install beautifulsoup4)
+Requirements:
+    -BeautifulSoup (pip install beautifulsoup4)
+    -Image (pip install pillow)
+    -requests (pip install requests)
 
 Running main.py requires a 'chapters' folder in the same directory you are running the script in.
 This will download all chapters of Attack On Titan into the 'chapters' folder.

@@ -1,6 +1,3 @@
-import requests
-from bs4 import BeautifulSoup
-# from chapter_getter import ChapterGetter
 from chapter_maker import ChapterMaker
 from utils import clear, get_page_soup
 
