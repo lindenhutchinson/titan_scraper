@@ -1,6 +1,7 @@
 from chapter_maker import ChapterMaker
 from utils import clear, get_page_soup
 
+
 class ChaptersDownloader():
     '''
     params:
@@ -8,16 +9,15 @@ class ChaptersDownloader():
         dir<str>: the directory to save the chapters into, with a trailing /
 
     '''
+
     def __init__(self, url, dir):
         self.url = url
         self.dir = dir
 
-
-
     def get_chapter_urls(self):
         '''
         fetches a list of chapter urls that can iterated over to download all chapters
-        
+
         returns:
             list<str>: list of chapter urls
 

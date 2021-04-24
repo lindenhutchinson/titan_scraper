@@ -9,6 +9,7 @@ class ChapterMaker():
     params:
         url<str>: url of a page which contains the desired images
     '''
+
     def __init__(self, url):
         self.url = url
 
@@ -27,17 +28,16 @@ class ChapterMaker():
             img = div.find("img")
             if img:
                 img_url = img['src']
-                if 'png' in img_url or 'jpg' in img_url:
+                if 'png' in img_url or 'jpg' in img_url or 'jpeg' in img_url:
                     img_url = img_url.replace('\\r', '')
                     img_urls.append(img_url)
         return img_urls
-
 
     def stream_image(self, url):
         '''
         params:
             url<str>: an image url
-            
+
         returns:
             response<obj>: a request object holding the loaded image
         '''
@@ -54,8 +54,8 @@ class ChapterMaker():
         img_urls = self.get_image_urls()
 
         images = []
-        ctr=0
-        dot_string='.'
+        ctr = 0
+        dot_string = '.'
 
         for url in img_urls:
             img_resp = self.stream_image(url)
@@ -63,7 +63,7 @@ class ChapterMaker():
                 img = Image.open(BytesIO(img_resp.content)).convert('RGB')
                 images.append(img)
 
-                ctr+=1
+                ctr += 1
                 dot_ctr = dot_string * round(10*ctr/len(img_urls))
                 clear()
                 print(f"working{dot_ctr}")
@@ -75,5 +75,13 @@ class ChapterMaker():
             dir<str>: The filename/path the pdf should be saved under
         '''
         images = self.get_images()
-        images[0].save(dir, "PDF", resolution=100.0,save_all=True, append_images=images[1:])
+        images[0].save(dir, "PDF", resolution=100.0,
+                       save_all=True, append_images=images[1:])
         del images
+
+
+# for debugging purposes
+# if __name__ == "__main__":
+#     url = 'https://ww7.readsnk.com/chapter/shingeki-no-kyojin-chapter-135/'
+#     cm = ChapterMaker(url)
+#     cm.create_pdf('test.pdf')
