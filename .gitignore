@@ -2,3 +2,4 @@ chapters
 test
 __pycache__
 merged
+*.pdf

@@ -11,15 +11,13 @@ def merge_pdfs(in_dir, out_file, max=0):
         max<int>: (optional) the total number of pdf files to be merged
     '''
     merger = PdfFileMerger()
-    ctr = 0
     pdfs = os.listdir(in_dir)
     prev = pdfs[0]
     file_names = []
     # create the correctly ordered list of files
-    for pdf in pdfs:
-        if ctr == max and max > 0:
+    for i, pdf in enumerate(pdfs):
+        if i == max and max > 0:
             break
-        ctr+=1
         # .5 chapters are listed before their numbered chapter, but they should be placed after while merging
         # so check if the previous chapter was a .5 chapter
         # if it was, remove it, add the numbered chapter first,
@@ -32,13 +30,11 @@ def merge_pdfs(in_dir, out_file, max=0):
             file_names.append(in_dir+pdf)
 
         prev = pdf
-        
-    ctr=0
-    for fname in file_names:
+
+    for i, fname in enumerate(file_names):
         merger.append(fname)
 
-        ctr += 1
-        dot_ctr = '.' * round(10*ctr/len(file_names))
+        dot_ctr = '.' * round(10*i/len(file_names))
         clear()
         print(f"working{dot_ctr}")
 
