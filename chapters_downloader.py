@@ -4,14 +4,14 @@ from utils import clear, get_page_soup
 
 class ChaptersDownloader():
     '''
+    For scraping chapters of Attack on Titan manga from a predefined site and creating PDF's out of the scraped images
     params:
-        url<str>: the url containing a list of chapters
         dir<str>: the directory to save the chapters into, with a trailing /
 
     '''
 
-    def __init__(self, url, dir):
-        self.url = url
+    def __init__(self, dir):
+        self.url = 'https://ww7.readsnk.com/manga/shingeki-no-kyojin/'
         self.dir = dir
 
     def get_chapter_urls(self):

@@ -43,7 +43,7 @@ class ChapterMaker():
         '''
         try:
             return requests.get(url, stream=True)
-        except:
+        except Exception:
             print(f"Couldn't stream {url}")
 
     def get_images(self):
@@ -54,19 +54,19 @@ class ChapterMaker():
         img_urls = self.get_image_urls()
 
         images = []
-        ctr = 0
         dot_string = '.'
 
-        for url in img_urls:
+        for i, url in enumerate(img_urls):
             img_resp = self.stream_image(url)
             if img_resp:
                 img = Image.open(BytesIO(img_resp.content)).convert('RGB')
                 images.append(img)
 
-                ctr += 1
-                dot_ctr = dot_string * round(10*ctr/len(img_urls))
-                clear()
-                print(f"working{dot_ctr}")
+                # dot_ctr = dot_string * round(10*i/len(img_urls))
+                progress = round(100 * (i/len(img_urls)), 1)
+                if i % 2 == 0:
+                    clear()
+                    print(f"getting images - {progress}%")
         return images
 
     def create_pdf(self, dir):

@@ -1,5 +1,7 @@
 chapters
+volumes
 test
 __pycache__
 merged
 *.pdf
+.vscode

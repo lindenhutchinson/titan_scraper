@@ -3,7 +3,7 @@ import os
 from utils import clear
 
 
-def merge_pdfs(in_dir, out_file, max=0):
+def merge_pdfs(in_dir, out_file, start=0, end=0):
     '''
     params:
         in_dir<str>: the directory containing pdf files with a trailing /
@@ -16,7 +16,9 @@ def merge_pdfs(in_dir, out_file, max=0):
     file_names = []
     # create the correctly ordered list of files
     for i, pdf in enumerate(pdfs):
-        if i == max and max > 0:
+        if i < start and start > 0:
+            continue
+        if i == end and end > 0:
             break
         # .5 chapters are listed before their numbered chapter, but they should be placed after while merging
         # so check if the previous chapter was a .5 chapter
@@ -34,9 +36,14 @@ def merge_pdfs(in_dir, out_file, max=0):
     for i, fname in enumerate(file_names):
         merger.append(fname)
 
-        dot_ctr = '.' * round(10*i/len(file_names))
+
+        progress = round(100 * (i/len(file_names)), 1)
+
         clear()
-        print(f"working{dot_ctr}")
+        print(f"merging files - {progress}%")
+        # dot_ctr = '.' * round(10*i/len(file_names))
+        # clear()
+        # print(f"working{dot_ctr}")
 
     print("saving merged file (this can take some time)")
     merger.write(out_file)
